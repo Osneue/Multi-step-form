@@ -62,7 +62,7 @@
       </aside>
 
       <main>
-        <section class="activated">
+        <section data-id="page-0" class="activated">
           <div class="main-header">
             <h2>Personal info</h2>
             <p>Please provide your name, email address, and phone number.</p>
@@ -88,10 +88,12 @@
             </div>
           </form>
 
-          <div class="btn-container"><button>Next Step</button></div>
+          <div class="btn-container">
+            <button data-id="next-btn">Next Step</button>
+          </div>
         </section>
 
-        <section>
+        <section data-id="page-1">
           <h2>Select your plan</h2>
           <p>You have the option of monthly or yearly billing.</p>
           <div>Arcade $9/mo</div>
@@ -101,7 +103,7 @@
           <button>Next Step</button>
         </section>
 
-        <section>
+        <section data-id="page-2">
           <h2>Pick add-ons</h2>
           <p>Add-ons help enhance your gaming experience.</p>
           <div>
@@ -123,7 +125,7 @@
           <button>Next Step</button>
         </section>
 
-        <section>
+        <section data-id="page-3">
           <h2>Finishing up</h2>
           <p>Double-check everything looks OK before confirming.</p>
           <article></article>
@@ -132,7 +134,7 @@
           <button>Confirm</button>
         </section>
 
-        <section>
+        <section data-id="page-4">
           <h2>Thank you!</h2>
           <p>
             Thanks for confirming your subscription! We hope you have fun using
@@ -147,4 +149,6 @@
     <!-- Monthly Yearly -->
     <!-- Step 2 end -->
   </body>
+
+  <script src="js/app.js" type="module" defer></script>
 </html>
