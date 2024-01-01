@@ -67,14 +67,21 @@
             <h2>Personal info</h2>
             <p>Please provide your name, email address, and phone number.</p>
           </div>
-          <form action="">
+
+          <form action="" data-id="form">
             <div class="input-container">
-              <label for="name">Name</label>
+              <div class="label-container">
+                <label for="name">Name</label>
+                <p></p>
+              </div>
               <input type="text" id="name" placeholder="e.g. Stephen King" />
             </div>
 
             <div class="input-container">
-              <label for="email">Email Address</label>
+              <div class="label-container">
+                <label for="email">Email Address</label>
+                <p></p>
+              </div>
               <input
                 type="email"
                 id="email"
@@ -83,7 +90,10 @@
             </div>
 
             <div class="input-container">
-              <label for="tel">Phone Number</label>
+              <div class="label-container">
+                <label for="tel">Phone Number</label>
+                <p></p>
+              </div>
               <input type="tel" id="tel" placeholder="e.g. +1 234 567 890" />
             </div>
           </form>

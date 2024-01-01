@@ -38,6 +38,10 @@ body {
   /* element attached with .activated will be displayed, otherwise hidden */
 }
 
+.error {
+  /* element attached with .error will display error message */
+}
+
 /* ================
     Typegraphy
    ================ */
@@ -63,6 +67,9 @@ p {
 
 input {
   min-height: 30px;
+}
+input.error {
+  border: 1px solid var(--Strawberry-red);
 }
 
 button {
@@ -144,6 +151,15 @@ section.activated {
   flex-direction: column;
   margin-bottom: 1em;
   gap: 5px;
+}
+
+.label-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.label-container p {
+  color: red;
 }
 
 .btn-container {

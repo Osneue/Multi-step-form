@@ -8,15 +8,15 @@ import Store from './store.js';
 import View from './view.js';
 
 function initApp() {
-  console.log('initApp');
+  //   console.log('initApp');
 
   const view = new View();
   const store = new Store();
 
   view.bindNextButton(() => {
-    console.log('next button clicked');
+    // console.log('next button clicked');
     let currentPage = store.currentPage;
-    view.switchPage(currentPage, true);
+    if (!view.switchPage(currentPage, true)) return;
     currentPage++;
     store.setCurrentPage(currentPage);
   });
