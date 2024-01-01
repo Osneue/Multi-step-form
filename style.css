@@ -66,7 +66,10 @@ p {
 }
 
 input {
-  min-height: 30px;
+  min-height: 40px;
+  font-size: 0.8em;
+  border-radius: 10px;
+  border: 1px solid var(--Light-gray);
 }
 input.error {
   border: 1px solid var(--Strawberry-red);
