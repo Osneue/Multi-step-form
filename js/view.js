@@ -9,13 +9,12 @@ export default class View {
   $$ = {};
 
   constructor() {
-    this.$.form = this.#qs('[data-id="form"]');
-    this.$$.inputs = this.#qsAll('input', this.$.form);
-    this.$$.labels = this.#qsAll('label', this.$.form);
-    this.$$.pages = this.#qsAll('[data-id*="page-"]');
+    this.$.p1Form = this.#qs('.p1-form');
+    this.$$.circles = this.#qsAll('.circle');
+    this.$$.p1Inputs = this.#qsAll('input', this.$.p1Form);
+    this.$$.p1Labels = this.#qsAll('label', this.$.p1Form);
+    this.$$.pages = this.#qsAll('[class*="page-"]');
     this.$$.nextBtns = this.#qsAll('[data-id="next-btn"]');
-
-    // this.#bindButtons();
   }
 
   render() {}
@@ -38,9 +37,11 @@ export default class View {
     }
     if (next) {
       this.$$.pages[currentPage].classList.remove('activated');
+      this.$$.circles[currentPage].classList.remove('activated');
       if (currentPage >= 4) currentPage = 0;
       else currentPage++;
       this.$$.pages[currentPage].classList.add('activated');
+      this.$$.circles[currentPage].classList.add('activated');
     }
     return true;
   }
@@ -64,11 +65,11 @@ export default class View {
       return /^\+?\d{10}$/i.test(input.value);
     };
 
-    this.$$.labels.forEach((label) => {
+    this.$$.p1Labels.forEach((label) => {
       label.nextElementSibling.textContent = '';
     });
 
-    this.$$.inputs.forEach((input, index) => {
+    this.$$.p1Inputs.forEach((input, index) => {
       input.classList.remove('error');
 
       if (!isValid) return;
@@ -76,7 +77,7 @@ export default class View {
       if (!input.value) {
         isValid = false;
         input.classList.add('error');
-        this.$$.labels[index].nextElementSibling.textContent = emptyError;
+        this.$$.p1Labels[index].nextElementSibling.textContent = emptyError;
         return;
       }
 
@@ -88,7 +89,7 @@ export default class View {
 
       if (!isValid) {
         input.classList.add('error');
-        this.$$.labels[index].nextElementSibling.textContent =
+        this.$$.p1Labels[index].nextElementSibling.textContent =
           invalidError[index];
       }
 

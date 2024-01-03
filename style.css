@@ -32,16 +32,6 @@ body {
   min-height: 100vh;
 }
 
-/* utils */
-
-.activated {
-  /* element attached with .activated will be displayed, otherwise hidden */
-}
-
-.error {
-  /* element attached with .error will display error message */
-}
-
 /* ================
     Typegraphy
    ================ */
@@ -65,25 +55,35 @@ p {
   line-height: 1.5em;
 }
 
-input {
+input[type='text'],
+input[type='email'],
+input[type='tel'] {
   min-height: 40px;
   font-size: 0.8em;
   border-radius: 10px;
   border: 1px solid var(--Light-gray);
   padding-left: 1em;
 }
-input.error {
+input[type='text'].error,
+input[type='email'].error,
+input[type='tel'].error {
   border: 1px solid var(--Strawberry-red);
 }
 
 button {
   border: 0;
-  background-color: var(--Marine-blue);
-  color: white;
   border-radius: 5px;
   min-height: 3em;
-  width: 6.5em;
-  margin-right: 2em;
+  min-width: 6.5em;
+  font-weight: bold;
+}
+.next-btn {
+  background-color: var(--Marine-blue);
+  color: white;
+}
+.prev-btn {
+  background-color: white;
+  color: var(--Cool-gray);
 }
 
 button:hover,
@@ -111,6 +111,46 @@ button:focus {
   color: var(--Marine-blue);
 }
 
+/* toggle checkbox */
+
+input[type='checkbox'].toggle {
+  opacity: 0;
+  width: 0;
+  height: 0;
+  position: absolute;
+  top: -10000px;
+  left: -10000px;
+}
+input[type='checkbox'].toggle + label {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+input[type='checkbox'].toggle + label::before {
+  content: '';
+  width: 3.5em;
+  height: 1.5em;
+  background-color: var(--Marine-blue);
+  border-radius: 1em;
+}
+input[type='checkbox'].toggle + label::after {
+  content: '';
+  width: 1.25em;
+  height: 1.25em;
+  background-color: white;
+  border-radius: 50%;
+  position: absolute;
+  left: 0.25em;
+  transition: transform 0.25s ease-in-out;
+}
+/* input[type='checkbox'].toggle:checked + label {
+  color: red;
+} */
+input[type='checkbox'].toggle:checked + label::after {
+  transform: translateX(1.75em);
+}
+
 /* ================
     Layout
    ================ */
@@ -121,6 +161,16 @@ aside {
   background-position: center;
   background-size: cover;
   min-height: 150px;
+}
+
+.aside-step-container {
+  display: flex;
+  width: 50%;
+  max-width: 200px;
+  min-width: 128px;
+  margin: 0 auto;
+  justify-content: space-between;
+  padding-top: 1.5em;
 }
 
 .aside-step-info {
@@ -150,6 +200,21 @@ section.activated {
   margin-bottom: 1.5em;
 }
 
+.btn-container {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5em 4em;
+  /* min-height: 80px; */
+}
+
+/* Page - 1 */
+
 .input-container {
   display: flex;
   flex-direction: column;
@@ -166,26 +231,62 @@ section.activated {
   color: red;
 }
 
-.btn-container {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  background-color: white;
-  display: flex;
+.page-1 .btn-container {
   justify-content: end;
-  align-items: center;
-  min-height: 80px;
 }
 
-.aside-step-container {
+/* Page - 2 */
+
+.page-2 h3 {
+  color: var(--Marine-blue);
+}
+
+.plan {
+  display: grid;
+  grid-template-areas:
+    'icon title'
+    'icon price';
+  justify-content: start;
+  column-gap: 1em;
+  padding: 1em;
+  border: 1px solid var(--Light-gray);
+  border-radius: 0.5em;
+  margin-bottom: 1em;
+}
+.plan:last-child {
+  margin-bottom: 2em;
+}
+.plan img {
+  grid-area: icon;
+}
+.plan h3 {
+  grid-area: title;
+}
+.plan p {
+  grid-area: price;
+}
+
+.p2-form {
   display: flex;
-  width: 50%;
-  max-width: 200px;
-  min-width: 128px;
-  margin: 0 auto;
-  justify-content: space-between;
-  padding-top: 1.5em;
+  justify-content: center;
+  padding: 1em 0;
+  background-color: var(--Magnolia);
+  border-radius: 0.5em;
+  gap: 2em;
+  font-weight: bold;
+}
+#year-check ~ p:first-of-type {
+  order: -1;
+  color: var(--Marine-blue);
+}
+#year-check ~ p:last-of-type {
+  color: var(--Cool-gray);
+}
+#year-check:checked ~ p:first-of-type {
+  color: var(--Cool-gray);
+}
+#year-check:checked ~ p:last-of-type {
+  color: var(--Marine-blue);
 }
 
 @media (min-width: 800px) {
@@ -245,5 +346,28 @@ section.activated {
   .btn-container {
     position: static;
     align-items: end;
+    margin-top: 5em;
+    padding: 0;
+  }
+
+  .plan-container {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 2em;
+  }
+  .plan,
+  .plan:last-of-type {
+    margin: 0;
+  }
+  .plan {
+    flex: 1;
+    max-width: 30%;
+    grid-template-areas:
+      'icon'
+      'title'
+      'price';
+  }
+  .plan img {
+    margin-bottom: 2em;
   }
 }
