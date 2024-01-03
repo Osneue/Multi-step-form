@@ -15,6 +15,7 @@ export default class View {
     this.$$.p1Labels = this.#qsAll('label', this.$.p1Form);
     this.$$.pages = this.#qsAll('[class*="page-"]');
     this.$$.nextBtns = this.#qsAll('[data-id="next-btn"]');
+    this.$$.prevBtns = this.#qsAll('[data-id="prev-btn"]');
   }
 
   render() {}
@@ -31,15 +32,30 @@ export default class View {
     });
   }
 
+  bindPrevButton(handler) {
+    this.$$.prevBtns.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        handler();
+      });
+    });
+  }
+
   switchPage(currentPage, next = true) {
     if (currentPage === 0) {
       if (!this.#isValidForm()) return false;
     }
     if (next) {
+      if (currentPage >= 4) return false;
       this.$$.pages[currentPage].classList.remove('activated');
       this.$$.circles[currentPage].classList.remove('activated');
-      if (currentPage >= 4) currentPage = 0;
-      else currentPage++;
+      currentPage++;
+      this.$$.pages[currentPage].classList.add('activated');
+      this.$$.circles[currentPage].classList.add('activated');
+    } else {
+      if (currentPage === 0) return false;
+      this.$$.pages[currentPage].classList.remove('activated');
+      this.$$.circles[currentPage].classList.remove('activated');
+      currentPage--;
       this.$$.pages[currentPage].classList.add('activated');
       this.$$.circles[currentPage].classList.add('activated');
     }

@@ -21,6 +21,14 @@ function initApp() {
     store.setCurrentPage(currentPage);
   });
 
+  view.bindPrevButton(() => {
+    // console.log('prev button clicked');
+    let currentPage = store.currentPage;
+    if (!view.switchPage(currentPage, false)) return;
+    currentPage--;
+    store.setCurrentPage(currentPage);
+  });
+
   //   view.render();
 }
 
