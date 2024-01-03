@@ -6,6 +6,7 @@
 
 const INITIAL_STATE = {
   currentPage: 0,
+  year: false,
 };
 
 export default class Store {
@@ -17,9 +18,19 @@ export default class Store {
     return this.state.currentPage;
   }
 
+  get isYear() {
+    return this.state.year;
+  }
+
   setCurrentPage(page) {
     let stateClone = structuredClone(this.#getState());
     stateClone.currentPage = page;
+    this.#setState(stateClone);
+  }
+
+  setYear(yesOrNo) {
+    let stateClone = structuredClone(this.#getState());
+    stateClone.year = yesOrNo;
     this.#setState(stateClone);
   }
 

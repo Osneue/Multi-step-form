@@ -10,15 +10,20 @@ export default class View {
 
   constructor() {
     this.$.p1Form = this.#qs('.p1-form');
+    this.$.p2CheckBox = this.#qs('#year-check');
     this.$$.circles = this.#qsAll('.circle');
     this.$$.p1Inputs = this.#qsAll('input', this.$.p1Form);
     this.$$.p1Labels = this.#qsAll('label', this.$.p1Form);
     this.$$.pages = this.#qsAll('[class*="page-"]');
+    this.$$.plans = this.#qsAll('.plan');
+    this.$$.privileges = this.#qsAll('.privilege');
     this.$$.nextBtns = this.#qsAll('[data-id="next-btn"]');
     this.$$.prevBtns = this.#qsAll('[data-id="prev-btn"]');
   }
 
-  render() {}
+  render(data) {
+    this.#renderMonthOrYear(data.isYear);
+  }
 
   //   #bindButtons() {
   //     this.#bindNextButton();
@@ -36,6 +41,31 @@ export default class View {
     this.$$.prevBtns.forEach((btn) => {
       btn.addEventListener('click', () => {
         handler();
+      });
+    });
+  }
+
+  bindYearCheckBox(handler) {
+    this.$.p2CheckBox.addEventListener('change', () => {
+      //   console.log(this.$.p2CheckBox.checked);
+      handler(this.$.p2CheckBox.checked);
+    });
+  }
+
+  bindPlans(handler) {
+    const types = ['arcade', 'advanced', 'pro'];
+    const clearActivated = () => {
+      this.$$.plans.forEach((plan) => {
+        plan.classList.remove('activated');
+      });
+    };
+
+    this.$$.plans.forEach((plan, index) => {
+      plan.addEventListener('click', () => {
+        // console.log('plan clicked');
+        clearActivated();
+        plan.classList.add('activated');
+        handler(types[index]);
       });
     });
   }
@@ -130,5 +160,19 @@ export default class View {
     if (list.length === 0 && throwIfEmpty)
       throw new Error(`Cannot find element: ${selector}`);
     return list;
+  }
+
+  #renderMonthOrYear(isYear) {
+    if (isYear) {
+      this.$.p2CheckBox.checked = true;
+      this.$$.privileges.forEach((privilege) => {
+        privilege.classList.add('activated');
+      });
+    } else {
+      this.$.p2CheckBox.checked = false;
+      this.$$.privileges.forEach((privilege) => {
+        privilege.classList.remove('activated');
+      });
+    }
   }
 }

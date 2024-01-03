@@ -29,7 +29,14 @@ function initApp() {
     store.setCurrentPage(currentPage);
   });
 
-  //   view.render();
+  view.bindYearCheckBox((isYear) => {
+    view.render({ isYear });
+    store.setYear(isYear);
+  });
+
+  view.bindPlans(() => {});
+
+  view.render({ isYear: store.isYear });
 }
 
 document.addEventListener('DOMContentLoaded', function () {

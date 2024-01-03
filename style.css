@@ -248,7 +248,8 @@ section.activated {
   display: grid;
   grid-template-areas:
     'icon title'
-    'icon price';
+    'icon price'
+    'icon privilege';
   justify-content: start;
   column-gap: 1em;
   padding: 1em;
@@ -259,14 +260,32 @@ section.activated {
 .plan:last-child {
   margin-bottom: 2em;
 }
+.plan.activated {
+  border: 1px solid var(--Purplish-blue);
+  background-color: var(--Magnolia);
+}
+.plan:hover {
+  cursor: pointer;
+  border: 1px solid var(--Purplish-blue);
+}
 .plan img {
   grid-area: icon;
 }
 .plan h3 {
   grid-area: title;
 }
-.plan p {
+.plan p:first-of-type {
   grid-area: price;
+}
+.plan p:last-of-type {
+  grid-area: privilege;
+  color: var(--Marine-blue);
+  font-size: 0.8rem;
+  font-weight: 500;
+  display: none;
+}
+.plan p:last-of-type.activated {
+  display: block;
 }
 
 .p2-form {
@@ -315,8 +334,8 @@ section.activated {
 
   .outer-container {
     display: flex;
-    width: 75%;
-    max-width: 800px;
+    /* width: 75%; */
+    /* max-width: 800px; */
     margin: 0 auto;
     padding: 1em;
     background-color: white;
@@ -326,7 +345,7 @@ section.activated {
   aside {
     width: 40%;
     min-width: 175px;
-    padding: 2em 0 0 1em;
+    padding: 2em 3em 0 1em;
     background-image: url(assets/images/bg-sidebar-desktop.svg);
     border-radius: 10px;
   }
@@ -383,7 +402,8 @@ section.activated {
     grid-template-areas:
       'icon'
       'title'
-      'price';
+      'price'
+      'privilege';
   }
   .plan img {
     margin-bottom: 2em;
