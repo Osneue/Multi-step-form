@@ -7,6 +7,7 @@
 export default class View {
   $ = {};
   $$ = {};
+  options = ['arcade', 'advanced', 'pro'];
 
   constructor() {
     this.$.p1Form = this.#qs('.p1-form');
@@ -21,8 +22,9 @@ export default class View {
     this.$$.prevBtns = this.#qsAll('[data-id="prev-btn"]');
   }
 
-  render(data) {
-    this.#renderMonthOrYear(data.isYear);
+  render({ isYear, option }) {
+    this.#renderMonthOrYear(isYear);
+    this.#renderOption(option);
   }
 
   //   #bindButtons() {
@@ -53,19 +55,10 @@ export default class View {
   }
 
   bindPlans(handler) {
-    const types = ['arcade', 'advanced', 'pro'];
-    const clearActivated = () => {
-      this.$$.plans.forEach((plan) => {
-        plan.classList.remove('activated');
-      });
-    };
-
     this.$$.plans.forEach((plan, index) => {
       plan.addEventListener('click', () => {
         // console.log('plan clicked');
-        clearActivated();
-        plan.classList.add('activated');
-        handler(types[index]);
+        handler(this.options[index]);
       });
     });
   }
@@ -174,5 +167,15 @@ export default class View {
         privilege.classList.remove('activated');
       });
     }
+  }
+
+  #renderOption(targetOption) {
+    this.options.forEach((option, index) => {
+      if (option === targetOption) {
+        this.$$.plans[index].classList.add('activated');
+      } else {
+        this.$$.plans[index].classList.remove('activated');
+      }
+    });
   }
 }

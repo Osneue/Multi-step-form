@@ -30,13 +30,16 @@ function initApp() {
   });
 
   view.bindYearCheckBox((isYear) => {
-    view.render({ isYear });
     store.setYear(isYear);
+    view.render({ isYear, option: store.option });
   });
 
-  view.bindPlans(() => {});
+  view.bindPlans((option) => {
+    store.setOption(option);
+    view.render({ isYear: store.isYear, option });
+  });
 
-  view.render({ isYear: store.isYear });
+  view.render({ isYear: store.isYear, option: store.option });
 }
 
 document.addEventListener('DOMContentLoaded', function () {

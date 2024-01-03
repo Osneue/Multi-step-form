@@ -7,6 +7,7 @@
 const INITIAL_STATE = {
   currentPage: 0,
   year: false,
+  option: 'arcade',
 };
 
 export default class Store {
@@ -22,6 +23,10 @@ export default class Store {
     return this.state.year;
   }
 
+  get option() {
+    return this.state.option;
+  }
+
   setCurrentPage(page) {
     let stateClone = structuredClone(this.#getState());
     stateClone.currentPage = page;
@@ -31,6 +36,12 @@ export default class Store {
   setYear(yesOrNo) {
     let stateClone = structuredClone(this.#getState());
     stateClone.year = yesOrNo;
+    this.#setState(stateClone);
+  }
+
+  setOption(option) {
+    let stateClone = structuredClone(this.#getState());
+    stateClone.option = option;
     this.#setState(stateClone);
   }
 
