@@ -4,10 +4,17 @@
  * Description: it manages view, using MVC pattern
  */
 
+import { ADD_ONS } from './constants.js';
+
 export default class View {
   $ = {};
   $$ = {};
   options = ['arcade', 'advanced', 'pro'];
+  addOns = [
+    ADD_ONS.ONLINE_SERVICE,
+    ADD_ONS.LARGE_STORAGE,
+    ADD_ONS.CUSTOMIZABLE_PROFILE,
+  ];
 
   constructor() {
     this.$.p1Form = this.#qs('.p1-form');
@@ -18,13 +25,15 @@ export default class View {
     this.$$.pages = this.#qsAll('[class*="page-"]');
     this.$$.plans = this.#qsAll('.plan');
     this.$$.privileges = this.#qsAll('.privilege');
+    this.$$.addOns = this.#qsAll('.add-on-container');
     this.$$.nextBtns = this.#qsAll('[data-id="next-btn"]');
     this.$$.prevBtns = this.#qsAll('[data-id="prev-btn"]');
   }
 
-  render({ isYear, option }) {
+  render({ isYear, option, addOnState }) {
     this.#renderMonthOrYear(isYear);
     this.#renderOption(option);
+    this.#renderAddOn(addOnState, isYear);
   }
 
   //   #bindButtons() {
@@ -59,6 +68,15 @@ export default class View {
       plan.addEventListener('click', () => {
         // console.log('plan clicked');
         handler(this.options[index]);
+      });
+    });
+  }
+
+  bindAddOns(handler) {
+    this.$$.addOns.forEach((addOn, index) => {
+      addOn.addEventListener('click', () => {
+        // console.log('add-ons clicked');
+        handler(this.addOns[index]);
       });
     });
   }
@@ -175,6 +193,37 @@ export default class View {
         this.$$.plans[index].classList.add('activated');
       } else {
         this.$$.plans[index].classList.remove('activated');
+      }
+    });
+  }
+
+  #renderAddOn(states, isYear) {
+    const monthPrices = [1, 2, 2];
+
+    if (isYear) {
+      this.$$.addOns.forEach((addOn, index) => {
+        const priceNode = addOn.children[1];
+        let price = monthPrices[index] * 10;
+        const newContent = `$${price}/yr`;
+        priceNode.textContent = newContent;
+      });
+    } else {
+      this.$$.addOns.forEach((addOn, index) => {
+        const priceNode = addOn.children[1];
+        let price = monthPrices[index];
+        const newContent = `$${price}/mo`;
+        priceNode.textContent = newContent;
+      });
+    }
+
+    states.forEach((state) => {
+      const index = this.addOns.findIndex((addOn) => addOn === state.name);
+      if (index >= 0) {
+        if (state.added) {
+          this.$$.addOns[index].classList.add('activated');
+        } else {
+          this.$$.addOns[index].classList.remove('activated');
+        }
       }
     });
   }

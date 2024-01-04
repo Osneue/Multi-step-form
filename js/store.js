@@ -4,10 +4,17 @@
  * Description: it acts as model part (manages storage), using MVC pattern
  */
 
+import { ADD_ONS } from './constants.js';
+
 const INITIAL_STATE = {
   currentPage: 0,
   year: false,
   option: 'arcade',
+  addOns: [
+    { name: ADD_ONS.ONLINE_SERVICE, added: false },
+    { name: ADD_ONS.LARGE_STORAGE, added: false },
+    { name: ADD_ONS.CUSTOMIZABLE_PROFILE, added: false },
+  ],
 };
 
 export default class Store {
@@ -25,6 +32,28 @@ export default class Store {
 
   get option() {
     return this.state.option;
+  }
+
+  get addOnState() {
+    return this.state.addOns;
+  }
+
+  isAddOnAppended(name) {
+    return this.state.addOns.find((addOn) => addOn.name === name).added;
+  }
+
+  addAddOns(name) {
+    let stateClone = structuredClone(this.#getState());
+    const index = stateClone.addOns.findIndex((addOn) => addOn.name === name);
+    if (index >= 0) stateClone.addOns[index].added = true;
+    this.#setState(stateClone);
+  }
+
+  removeAddOns(name) {
+    let stateClone = structuredClone(this.#getState());
+    const index = stateClone.addOns.findIndex((addOn) => addOn.name === name);
+    if (index >= 0) stateClone.addOns[index].added = false;
+    this.#setState(stateClone);
   }
 
   setCurrentPage(page) {

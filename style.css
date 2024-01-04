@@ -55,6 +55,11 @@ p {
   line-height: 1.5em;
 }
 
+img {
+  max-width: 100%;
+  display: block;
+}
+
 input[type='text'],
 input[type='email'],
 input[type='tel'] {
@@ -309,6 +314,50 @@ section.activated {
 }
 #year-check:checked ~ p:last-of-type {
   color: var(--Marine-blue);
+}
+
+/* Page - 3 */
+
+.page-3 h3 {
+  color: var(--Marine-blue);
+}
+
+.add-on-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1em;
+  border: 1px solid var(--Light-gray);
+  padding: 1em;
+  border-radius: 1em;
+}
+.add-on-container:hover {
+  cursor: pointer;
+  border: 1px solid var(--Purplish-blue);
+}
+.add-on-check {
+  display: flex;
+  align-items: center;
+  gap: 1em;
+}
+.icon-checkmark {
+  width: 1.5em;
+  height: 1.5em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 0.25em;
+  border: 1px solid var(--Light-gray);
+}
+.add-on-container.activated {
+  border: 1px solid var(--Purplish-blue);
+}
+.add-on-container.activated .icon-checkmark {
+  background-color: var(--Purplish-blue);
+  border: 0;
+}
+.add-on-container > p {
+  color: var(--Purplish-blue);
 }
 
 @media (min-width: 450px) {

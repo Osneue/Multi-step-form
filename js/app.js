@@ -31,15 +31,38 @@ function initApp() {
 
   view.bindYearCheckBox((isYear) => {
     store.setYear(isYear);
-    view.render({ isYear, option: store.option });
+    view.render({
+      isYear: store.isYear,
+      option: store.option,
+      addOnState: store.addOnState,
+    });
   });
 
   view.bindPlans((option) => {
     store.setOption(option);
-    view.render({ isYear: store.isYear, option });
+    view.render({
+      isYear: store.isYear,
+      option: store.option,
+      addOnState: store.addOnState,
+    });
   });
 
-  view.render({ isYear: store.isYear, option: store.option });
+  view.bindAddOns((addOn) => {
+    const isAdded = store.isAddOnAppended(addOn);
+    if (isAdded) store.removeAddOns(addOn);
+    else store.addAddOns(addOn);
+    view.render({
+      isYear: store.isYear,
+      option: store.option,
+      addOnState: store.addOnState,
+    });
+  });
+
+  view.render({
+    isYear: store.isYear,
+    option: store.option,
+    addOnState: store.addOnState,
+  });
 }
 
 document.addEventListener('DOMContentLoaded', function () {
