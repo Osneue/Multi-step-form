@@ -360,6 +360,78 @@ section.activated {
   color: var(--Purplish-blue);
 }
 
+/* Page - 4 */
+
+.price-details {
+  margin-bottom: 1.5em;
+  background-color: var(--Magnolia);
+  border-radius: 1em;
+  padding: 1em;
+}
+
+.price-detail-plan {
+  display: grid;
+  justify-content: space-between;
+  row-gap: 0.5em;
+  grid-template-areas:
+    'title price'
+    'change price';
+  border-bottom: 1px solid var(--Light-gray);
+  margin-bottom: 1em;
+  padding-bottom: 1em;
+}
+
+.price-detail-plan h3 {
+  grid-area: title;
+  color: var(--Marine-blue);
+}
+
+.price-detail-plan a {
+  grid-area: change;
+  color: var(--Cool-gray);
+}
+.price-detail-plan a:hover,
+.price-detail-plan a:focus {
+  color: var(--Purplish-blue);
+}
+
+.price-detail-plan p {
+  grid-area: price;
+  color: var(--Marine-blue);
+  font-weight: bold;
+}
+
+.price-detail-add-on {
+  display: flex;
+  justify-content: space-between;
+}
+
+.price-detail-add-on p:last-of-type {
+  color: var(--Marine-blue);
+}
+
+.price-total {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 1em;
+}
+
+.price-total p:last-of-type {
+  color: var(--Purplish-blue);
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+.page-4 .next-btn {
+  background-color: var(--Purplish-blue);
+  /* background-color: red; */
+  color: white;
+}
+.page-4 .next-btn:hover,
+.page-4 .next-btn:focus {
+  opacity: 0.8;
+}
+
 @media (min-width: 450px) {
   .btn-container {
     justify-content: center;
