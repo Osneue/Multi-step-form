@@ -142,7 +142,7 @@ export default class View {
     this.$$.pages[currentPage].classList.remove('activated');
     this.$$.circles[currentPage].classList.remove('activated');
     this.$$.pages[nextPage].classList.add('activated');
-    if (nextPage < 4) this.$$.circles[nextPage].classList.add('activated');
+    this.$$.circles[Math.min(nextPage, 3)].classList.add('activated');
     // if (next) {
     //   if (currentPage >= 4) return false;
     //   this.$$.pages[currentPage].classList.remove('activated');
