@@ -15,6 +15,7 @@ export default class View {
     ADD_ONS.LARGE_STORAGE,
     ADD_ONS.CUSTOMIZABLE_PROFILE,
   ];
+  changeHandler = null;
 
   constructor() {
     this.$.p1Form = this.#qs('.p1-form');
@@ -83,25 +84,33 @@ export default class View {
     });
   }
 
-  switchPage(currentPage, next = true) {
+  bindChangeLink(handler) {
+    this.changeHandler = handler;
+  }
+
+  switchPage(currentPage, nextPage) {
     if (currentPage === 0) {
       if (!this.#isValidForm()) return false;
     }
-    if (next) {
-      if (currentPage >= 4) return false;
-      this.$$.pages[currentPage].classList.remove('activated');
-      this.$$.circles[currentPage].classList.remove('activated');
-      currentPage++;
-      this.$$.pages[currentPage].classList.add('activated');
-      this.$$.circles[currentPage].classList.add('activated');
-    } else {
-      if (currentPage === 0) return false;
-      this.$$.pages[currentPage].classList.remove('activated');
-      this.$$.circles[currentPage].classList.remove('activated');
-      currentPage--;
-      this.$$.pages[currentPage].classList.add('activated');
-      this.$$.circles[currentPage].classList.add('activated');
-    }
+    this.$$.pages[currentPage].classList.remove('activated');
+    this.$$.circles[currentPage].classList.remove('activated');
+    this.$$.pages[nextPage].classList.add('activated');
+    this.$$.circles[nextPage].classList.add('activated');
+    // if (next) {
+    //   if (currentPage >= 4) return false;
+    //   this.$$.pages[currentPage].classList.remove('activated');
+    //   this.$$.circles[currentPage].classList.remove('activated');
+    //   currentPage++;
+    //   this.$$.pages[currentPage].classList.add('activated');
+    //   this.$$.circles[currentPage].classList.add('activated');
+    // } else {
+    //   if (currentPage === 0) return false;
+    //   this.$$.pages[currentPage].classList.remove('activated');
+    //   this.$$.circles[currentPage].classList.remove('activated');
+    //   currentPage--;
+    //   this.$$.pages[currentPage].classList.add('activated');
+    //   this.$$.circles[currentPage].classList.add('activated');
+    // }
     return true;
   }
 
@@ -288,6 +297,13 @@ export default class View {
       this.$$.pages[3].children[1].appendChild(template);
     };
 
+    const bindChangeLink = (handler) => {
+      const changeLink = this.#qs('.price-detail-plan a');
+      changeLink.addEventListener('click', () => {
+        this.changeHandler();
+      });
+    };
+
     const template = document.importNode(this.$.priceTemplate.content, true);
     const pricePlan = this.#qs('.price-detail-plan', template);
     const priceAddOn = this.#qs('.price-detail-add-on-container', template);
@@ -297,12 +313,13 @@ export default class View {
     renderAddOns();
     renderPriceTotal();
     renderTemplate();
+    bindChangeLink();
   }
 
   #html2Element(html) {
     const template = document.createElement('template');
     template.innerHTML = html.trim();
-    console.log(template.content);
+    // console.log(template.content);
     return template.content.firstElementChild;
   }
 }

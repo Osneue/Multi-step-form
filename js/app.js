@@ -16,7 +16,7 @@ function initApp() {
   view.bindNextButton(() => {
     // console.log('next button clicked');
     let currentPage = store.currentPage;
-    if (!view.switchPage(currentPage, true)) return;
+    if (!view.switchPage(currentPage, currentPage + 1)) return;
     currentPage++;
     store.setCurrentPage(currentPage);
   });
@@ -24,7 +24,7 @@ function initApp() {
   view.bindPrevButton(() => {
     // console.log('prev button clicked');
     let currentPage = store.currentPage;
-    if (!view.switchPage(currentPage, false)) return;
+    if (!view.switchPage(currentPage, currentPage - 1)) return;
     currentPage--;
     store.setCurrentPage(currentPage);
   });
@@ -56,6 +56,13 @@ function initApp() {
       option: store.option,
       addOnState: store.addOnState,
     });
+  });
+
+  view.bindChangeLink(() => {
+    let currentPage = store.currentPage;
+    if (!view.switchPage(currentPage, 1)) return;
+    currentPage = 1;
+    store.setCurrentPage(currentPage);
   });
 
   view.render({
