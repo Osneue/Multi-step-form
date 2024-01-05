@@ -432,6 +432,41 @@ section.activated {
   opacity: 0.8;
 }
 
+/* Page - 5 */
+
+.page-5-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 400px;
+}
+
+.page-5-container img {
+  margin-bottom: 1.5em;
+}
+
+.thankyou-contaner {
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  display: none;
+}
+
+.thankyou-small {
+  display: flex;
+}
+
+@media (min-width: 368px) {
+  .thankyou-small {
+    display: none;
+  }
+
+  .thankyou-middle {
+    display: flex;
+  }
+}
+
 @media (min-width: 450px) {
   .btn-container {
     justify-content: center;
@@ -529,5 +564,12 @@ section.activated {
   }
   .plan img {
     margin-bottom: 2em;
+  }
+
+  .thankyou-middle {
+    display: none;
+  }
+  .thankyou-big {
+    display: flex;
   }
 }
