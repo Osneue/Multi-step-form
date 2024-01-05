@@ -200,23 +200,27 @@
             <p>Double-check everything looks OK before confirming.</p>
           </div>
 
-          <!-- <template> -->
-          <div class="price-details">
-            <div class="price-detail-plan">
-              <h3>Arcade(Monthly)</h3>
-              <a href="#">Change</a>
-              <p>+$9/mo</p>
-            </div>
-            <div class="price-detail-add-on">
-              <p>Online service</p>
-              <p>+$1/mo</p>
-            </div>
+          <div data-id="price-root">
+            <template data-id="price-template">
+              <div class="price-details">
+                <div class="price-detail-plan">
+                  <h3>Arcade(Monthly)</h3>
+                  <a href="#">Change</a>
+                  <p>+$9/mo</p>
+                </div>
+                <div class="price-detail-add-on-container">
+                  <!-- <div class="price-detail-add-on">
+                  <p>Online service</p>
+                  <p>+$1/mo</p>
+                </div> -->
+                </div>
+              </div>
+              <div class="price-total">
+                <p>Total (per month)</p>
+                <p>+$10/mo</p>
+              </div>
+            </template>
           </div>
-          <div class="price-total">
-            <p>Total (per month)</p>
-            <p>+$10/mo</p>
-          </div>
-          <!-- </template> -->
 
           <div class="btn-container">
             <button data-id="prev-btn" class="prev-btn">Go Back</button>

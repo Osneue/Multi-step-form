@@ -4,7 +4,7 @@
  * Description: it manages view, using MVC pattern
  */
 
-import { ADD_ONS } from './constants.js';
+import { ADD_ONS, ADD_ON_PRICE, OPTIONS } from './constants.js';
 
 export default class View {
   $ = {};
@@ -19,6 +19,7 @@ export default class View {
   constructor() {
     this.$.p1Form = this.#qs('.p1-form');
     this.$.p2CheckBox = this.#qs('#year-check');
+    this.$.priceTemplate = this.#qs('[data-id="price-template"]');
     this.$$.circles = this.#qsAll('.circle');
     this.$$.p1Inputs = this.#qsAll('input', this.$.p1Form);
     this.$$.p1Labels = this.#qsAll('label', this.$.p1Form);
@@ -34,6 +35,7 @@ export default class View {
     this.#renderMonthOrYear(isYear);
     this.#renderOption(option);
     this.#renderAddOn(addOnState, isYear);
+    this.#renderPage4(isYear, option, addOnState);
   }
 
   //   #bindButtons() {
@@ -226,5 +228,81 @@ export default class View {
         }
       }
     });
+  }
+
+  #renderPage4(isYear, option, addOnState) {
+    let priceSum = 0;
+
+    const captalise = (str) => {
+      return str[0].toUpperCase() + str.slice(1);
+    };
+
+    const renderOption = () => {
+      const index = OPTIONS.findIndex((opt) => opt.name === option);
+      if (index < 0) return;
+
+      pricePlan.children[0].textContent = `${captalise(OPTIONS[index].name)}${
+        isYear ? '(Yearly)' : '(Monthly)'
+      }`;
+      let price = OPTIONS[index].price;
+      if (isYear) price *= 10;
+      priceSum += price;
+      pricePlan.children[2].textContent = `$${price}/${isYear ? 'yr' : 'mo'}`;
+    };
+
+    const renderAddOns = () => {
+      const renderAddOn = (state) => {
+        let price = ADD_ON_PRICE.find((item) => item.name === state.name).price;
+        if (isYear) price *= 10;
+        priceSum += price;
+        const elem = this.#html2Element(`
+          <div class="price-detail-add-on">
+            <p>${captalise(state.name)}</p>
+            <p>+$${price}/${isYear ? 'yr' : 'mo'}</p>
+          </div>
+        `);
+        return elem;
+      };
+      addOnState.forEach((state) => {
+        if (!state.added) return;
+        const elem = renderAddOn(state);
+        priceAddOn.appendChild(elem);
+      });
+    };
+
+    const renderPriceTotal = () => {
+      priceTotal.children[0].textContent = `Total (per ${
+        isYear ? 'year' : 'month'
+      })`;
+      priceTotal.children[1].textContent = `+$${priceSum}/${
+        isYear ? 'yr' : 'mo'
+      }`;
+    };
+
+    const renderTemplate = () => {
+      while (this.$$.pages[3].children[1].firstChild) {
+        this.$$.pages[3].children[1].removeChild(
+          this.$$.pages[3].children[1].firstChild
+        );
+      }
+      this.$$.pages[3].children[1].appendChild(template);
+    };
+
+    const template = document.importNode(this.$.priceTemplate.content, true);
+    const pricePlan = this.#qs('.price-detail-plan', template);
+    const priceAddOn = this.#qs('.price-detail-add-on-container', template);
+    const priceTotal = this.#qs('.price-total', template);
+
+    renderOption();
+    renderAddOns();
+    renderPriceTotal();
+    renderTemplate();
+  }
+
+  #html2Element(html) {
+    const template = document.createElement('template');
+    template.innerHTML = html.trim();
+    console.log(template.content);
+    return template.content.firstElementChild;
   }
 }
