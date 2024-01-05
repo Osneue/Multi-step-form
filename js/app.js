@@ -16,22 +16,39 @@ function initApp() {
   view.bindNextButton(() => {
     // console.log('next button clicked');
     let currentPage = store.currentPage;
-    if (!view.switchPage(currentPage, currentPage + 1)) return;
-    currentPage++;
-    store.setCurrentPage(currentPage);
+    let nextPage = currentPage + 1;
+    if (currentPage === 0) {
+      if (!view.isValidForm()) return;
+    }
+    store.setCurrentPage(nextPage);
+    view.render({
+      currentPage,
+      nextPage,
+      isYear: store.isYear,
+      option: store.option,
+      addOnState: store.addOnState,
+    });
   });
 
   view.bindPrevButton(() => {
     // console.log('prev button clicked');
     let currentPage = store.currentPage;
-    if (!view.switchPage(currentPage, currentPage - 1)) return;
-    currentPage--;
-    store.setCurrentPage(currentPage);
+    let nextPage = currentPage - 1;
+    store.setCurrentPage(nextPage);
+    view.render({
+      currentPage,
+      nextPage,
+      isYear: store.isYear,
+      option: store.option,
+      addOnState: store.addOnState,
+    });
   });
 
   view.bindYearCheckBox((isYear) => {
     store.setYear(isYear);
     view.render({
+      currentPage: store.currentPage,
+      nextPage: store.currentPage,
       isYear: store.isYear,
       option: store.option,
       addOnState: store.addOnState,
@@ -41,6 +58,8 @@ function initApp() {
   view.bindPlans((option) => {
     store.setOption(option);
     view.render({
+      currentPage: store.currentPage,
+      nextPage: store.currentPage,
       isYear: store.isYear,
       option: store.option,
       addOnState: store.addOnState,
@@ -52,6 +71,8 @@ function initApp() {
     if (isAdded) store.removeAddOns(addOn);
     else store.addAddOns(addOn);
     view.render({
+      currentPage: store.currentPage,
+      nextPage: store.currentPage,
       isYear: store.isYear,
       option: store.option,
       addOnState: store.addOnState,
@@ -60,12 +81,20 @@ function initApp() {
 
   view.bindChangeLink(() => {
     let currentPage = store.currentPage;
-    if (!view.switchPage(currentPage, 1)) return;
-    currentPage = 1;
-    store.setCurrentPage(currentPage);
+    let nextPage = 1;
+    store.setCurrentPage(nextPage);
+    view.render({
+      currentPage,
+      nextPage,
+      isYear: store.isYear,
+      option: store.option,
+      addOnState: store.addOnState,
+    });
   });
 
   view.render({
+    currentPage: store.currentPage,
+    nextPage: store.currentPage,
     isYear: store.isYear,
     option: store.option,
     addOnState: store.addOnState,

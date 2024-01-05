@@ -27,11 +27,12 @@ export default class View {
     this.$$.prevBtns = this.#qsAll('[data-id="prev-btn"]');
   }
 
-  render({ isYear, option, addOnState }) {
+  render({ currentPage, nextPage, isYear, option, addOnState }) {
     this.#renderMonthOrYear(isYear);
     this.#renderOption(option);
     this.#renderAddOn(addOnState, isYear);
     this.#renderPage4(isYear, option, addOnState);
+    this.#switchPage(currentPage, nextPage);
   }
 
   //   #bindButtons() {
@@ -83,33 +84,7 @@ export default class View {
     this.changeHandler = handler;
   }
 
-  switchPage(currentPage, nextPage) {
-    if (currentPage === 0) {
-      if (!this.#isValidForm()) return false;
-    }
-    this.$$.pages[currentPage].classList.remove('activated');
-    this.$$.circles[currentPage].classList.remove('activated');
-    this.$$.pages[nextPage].classList.add('activated');
-    if (nextPage < 4) this.$$.circles[nextPage].classList.add('activated');
-    // if (next) {
-    //   if (currentPage >= 4) return false;
-    //   this.$$.pages[currentPage].classList.remove('activated');
-    //   this.$$.circles[currentPage].classList.remove('activated');
-    //   currentPage++;
-    //   this.$$.pages[currentPage].classList.add('activated');
-    //   this.$$.circles[currentPage].classList.add('activated');
-    // } else {
-    //   if (currentPage === 0) return false;
-    //   this.$$.pages[currentPage].classList.remove('activated');
-    //   this.$$.circles[currentPage].classList.remove('activated');
-    //   currentPage--;
-    //   this.$$.pages[currentPage].classList.add('activated');
-    //   this.$$.circles[currentPage].classList.add('activated');
-    // }
-    return true;
-  }
-
-  #isValidForm() {
+  isValidForm() {
     let isValid = true;
     const emptyError = 'This field is required.';
     const invalidError = [
@@ -160,6 +135,30 @@ export default class View {
     });
 
     return isValid;
+  }
+
+  #switchPage(currentPage, nextPage) {
+    if (currentPage === nextPage) return;
+    this.$$.pages[currentPage].classList.remove('activated');
+    this.$$.circles[currentPage].classList.remove('activated');
+    this.$$.pages[nextPage].classList.add('activated');
+    if (nextPage < 4) this.$$.circles[nextPage].classList.add('activated');
+    // if (next) {
+    //   if (currentPage >= 4) return false;
+    //   this.$$.pages[currentPage].classList.remove('activated');
+    //   this.$$.circles[currentPage].classList.remove('activated');
+    //   currentPage++;
+    //   this.$$.pages[currentPage].classList.add('activated');
+    //   this.$$.circles[currentPage].classList.add('activated');
+    // } else {
+    //   if (currentPage === 0) return false;
+    //   this.$$.pages[currentPage].classList.remove('activated');
+    //   this.$$.circles[currentPage].classList.remove('activated');
+    //   currentPage--;
+    //   this.$$.pages[currentPage].classList.add('activated');
+    //   this.$$.circles[currentPage].classList.add('activated');
+    // }
+    return true;
   }
 
   #qs(selector, root) {
