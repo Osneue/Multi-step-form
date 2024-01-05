@@ -4,16 +4,16 @@
  * Description: it acts as model part (manages storage), using MVC pattern
  */
 
-import { ADD_ONS } from './constants.js';
+import { ADD_ONS, OPTIONS } from './constants.js';
 
 const INITIAL_STATE = {
   currentPage: 0,
   year: false,
-  option: 'arcade',
+  option: OPTIONS[0],
   addOns: [
-    { name: ADD_ONS.ONLINE_SERVICE, added: false },
-    { name: ADD_ONS.LARGE_STORAGE, added: false },
-    { name: ADD_ONS.CUSTOMIZABLE_PROFILE, added: false },
+    { name: ADD_ONS[0], added: false },
+    { name: ADD_ONS[1], added: false },
+    { name: ADD_ONS[2], added: false },
   ],
 };
 

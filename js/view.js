@@ -4,17 +4,12 @@
  * Description: it manages view, using MVC pattern
  */
 
-import { ADD_ONS, ADD_ON_PRICE, OPTIONS } from './constants.js';
+import { ADD_ONS, ADD_ON_PRICE, OPTIONS, OPTIONS_PRICE } from './constants.js';
 
 export default class View {
   $ = {};
   $$ = {};
-  options = ['arcade', 'advanced', 'pro'];
-  addOns = [
-    ADD_ONS.ONLINE_SERVICE,
-    ADD_ONS.LARGE_STORAGE,
-    ADD_ONS.CUSTOMIZABLE_PROFILE,
-  ];
+  addOns = [ADD_ONS[0], ADD_ONS[1], ADD_ONS[2]];
   changeHandler = null;
 
   constructor() {
@@ -70,7 +65,7 @@ export default class View {
     this.$$.plans.forEach((plan, index) => {
       plan.addEventListener('click', () => {
         // console.log('plan clicked');
-        handler(this.options[index]);
+        handler(OPTIONS[index]);
       });
     });
   }
@@ -199,7 +194,7 @@ export default class View {
   }
 
   #renderOption(targetOption) {
-    this.options.forEach((option, index) => {
+    OPTIONS.forEach((option, index) => {
       if (option === targetOption) {
         this.$$.plans[index].classList.add('activated');
       } else {
@@ -247,13 +242,13 @@ export default class View {
     };
 
     const renderOption = () => {
-      const index = OPTIONS.findIndex((opt) => opt.name === option);
+      const index = OPTIONS_PRICE.findIndex((opt) => opt.name === option);
       if (index < 0) return;
 
-      pricePlan.children[0].textContent = `${captalise(OPTIONS[index].name)}${
-        isYear ? '(Yearly)' : '(Monthly)'
-      }`;
-      let price = OPTIONS[index].price;
+      pricePlan.children[0].textContent = `${captalise(
+        OPTIONS_PRICE[index].name
+      )}${isYear ? '(Yearly)' : '(Monthly)'}`;
+      let price = OPTIONS_PRICE[index].price;
       if (isYear) price *= 10;
       priceSum += price;
       pricePlan.children[2].textContent = `$${price}/${isYear ? 'yr' : 'mo'}`;

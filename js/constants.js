@@ -1,17 +1,19 @@
-export const ADD_ONS = Object.freeze({
-  ONLINE_SERVICE: 'online-service',
-  LARGE_STORAGE: 'large-storage',
-  CUSTOMIZABLE_PROFILE: 'customizable-profile',
-});
-
-export const ADD_ON_PRICE = [
-  { name: ADD_ONS.ONLINE_SERVICE, price: 1 },
-  { name: ADD_ONS.LARGE_STORAGE, price: 2 },
-  { name: ADD_ONS.CUSTOMIZABLE_PROFILE, price: 2 },
+export const ADD_ONS = [
+  'online-service',
+  'large-storage',
+  'customizable-profile',
 ];
 
-export const OPTIONS = [
-  { name: 'arcade', price: 9 },
-  { name: 'advanced', price: 12 },
-  { name: 'pro', price: 15 },
+export const ADD_ON_PRICE = [
+  { name: ADD_ONS[0], price: 1 },
+  { name: ADD_ONS[1], price: 2 },
+  { name: ADD_ONS[2], price: 2 },
+];
+
+export const OPTIONS = ['arcade', 'advanced', 'pro'];
+
+export const OPTIONS_PRICE = [
+  { name: OPTIONS[0], price: 9 },
+  { name: OPTIONS[1], price: 12 },
+  { name: OPTIONS[2], price: 15 },
 ];
